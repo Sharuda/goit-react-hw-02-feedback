@@ -13,10 +13,8 @@ export class App extends Component {
     bad: 0,
   };
 
-  leaveFeedback = ({ target }) => {
-    this.setState(prevState => {
-      return { [target.name]: prevState[target.name] + 1 };
-    });
+  leaveFeedback = event => {
+    this.setState({ [event]: this.state[event] + 1 });
   };
 
   countTotalFeedback = () => {
@@ -39,7 +37,10 @@ export class App extends Component {
     return (
       <Layout>
         <Section title="Please leave feedback">
-          <FeedbackOptions onLeaveFeedback={this.leaveFeedback} />
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.leaveFeedback}
+          />
         </Section>
         <Section title="Statistics">
           {this.countTotalFeedback() === 0 ? (
